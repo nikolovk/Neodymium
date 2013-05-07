@@ -6,13 +6,13 @@ using Wintellect.PowerCollections;
 
 namespace GameFifteen
 {
-	// pozdravi na vsi4ki ot pernik!
+    // pozdravi na vsi4ki ot pernik!
 
     class GameFifteen
     {
-        static Random r = new Random();
+        static Random rand = new Random();
         public const int MatrixLength = 4;
-        static int[,] sol = new int[MatrixLength, MatrixLength] { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, 
+        static int[,] arrangedMatrix = new int[MatrixLength, MatrixLength] { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, 
                                                                      { 9, 10, 11, 12 }, { 13, 14, 15, 16 } };
         static int emptyRow = 3;
         static int emptyCol = 3;
@@ -24,19 +24,23 @@ namespace GameFifteen
 
         private static void GenerateMatrix()
         {
-            int value = 1;
-            for (int i = 0; i < MatrixLength; i++)
-            {
-                for (int j = 0; j < MatrixLength; j++)
-                {
-                    currentMatrix[i, j] = value;
-                    value++;
-                }
-            }
-            int ramizeMoves = r.Next(10, 21);
+            /* mislq che tozi kod e izlishen
+             currentMatrix se inicializira hardcode*/
+
+            //int cellValue = 1;
+            //for (int i = 0; i < MatrixLength; i++)
+            //{
+            //    for (int j = 0; j < MatrixLength; j++)
+            //    {
+            //        currentMatrix[i, j] = cellValue;
+            //        cellValue++;
+            //    }
+            //}
+
+            int ramizeMoves = rand.Next(10, 21);
             for (int i = 0; i < ramizeMoves; i++)
             {
-                int randomDirection = r.Next(4);
+                int randomDirection = rand.Next(4);
                 int newRow = emptyRow + dirR[randomDirection];
                 int newCol = emptyCol + dirC[randomDirection];
                 if (IfOutOfMAtrix(newRow, newCol))
@@ -49,12 +53,10 @@ namespace GameFifteen
                     MoveEmptyCell(newRow, newCol);
                 }
             }
+
             if (IfEqualMatrix())
             {
                 GenerateMatrix();
-
-
-
             }
         }
 
@@ -64,8 +66,6 @@ namespace GameFifteen
             {
                 return true;
             }
-
-
 
             return false;
         }
@@ -77,9 +77,6 @@ namespace GameFifteen
             currentMatrix[emptyRow, emptyCol] = swapValue;
             emptyRow = newRow;
             emptyCol = newCol;
-
-
-
         }
 
         private static void PrintMatrix()
@@ -94,15 +91,9 @@ namespace GameFifteen
                     {
                         Console.Write("  {0}", currentMatrix[i, j]);
                     }
-
-
-
                     else
                     {
                         if (currentMatrix[i, j] == 16)
-
-
-
                         {
                             Console.Write("   ");
                         }
@@ -111,15 +102,14 @@ namespace GameFifteen
                             Console.Write(" {0}", currentMatrix[i, j]);
                         }
                     }
+
                     if (j == MatrixLength - 1)
                     {
-
-
-
                         Console.Write(" |\n");
                     }
                 }
             }
+
             Console.WriteLine(" -------------");
         }
 
@@ -134,16 +124,14 @@ namespace GameFifteen
             for (int i = 0; i < MatrixLength; i++)
             {
                 for (int j = 0; j < MatrixLength; j++)
-
-
-
                 {
-                    if (currentMatrix[i, j] != sol[i, j])
+                    if (currentMatrix[i, j] != arrangedMatrix[i, j])
                     {
                         return false;
                     }
                 }
             }
+
             return true;
         }
 
@@ -156,8 +144,10 @@ namespace GameFifteen
                     return true;
                 }
             }
+
             return false;
         }
+
         private static void RemoveLastScore()
         {
             if (scoreboard.Last().Value.Count > 0)
@@ -173,6 +163,7 @@ namespace GameFifteen
                 scoreboard.Remove(keys.Last());
             }
         }
+
         private static void GameWon(int moves)
         {
             Console.WriteLine("Congratulations! You won the game in {0} moves.", moves);
@@ -194,12 +185,14 @@ namespace GameFifteen
                 tocki(moves);
             }
         }
+
         private static void tocki(int moves)
         {
             Console.Write("Please enter your name for the top scoreboard: ");
             string name = Console.ReadLine();
             scoreboard.Add(moves, name);
         }
+
         private static void pe4at()
         {
             if (scoreboard.Count == 0)
@@ -207,18 +200,18 @@ namespace GameFifteen
                 Console.WriteLine("Scoreboard is empty");
                 return;
             }
+
             Console.WriteLine("Scoreboard:");
             int i = 1;
             foreach (var score in scoreboard)
             {
-
-
                 foreach (var value in score.Value)
                 {
                     Console.WriteLine("{0}. {1} --> {2} moves", i, value, score.Key);
                     i++;
                 }
             }
+
             Console.WriteLine();
         }
 
@@ -228,96 +221,104 @@ namespace GameFifteen
             PrintWelcome();
             PrintMatrix();
             MainAlgorithm();
-		}
-  
-		private static void MainAlgorithm()
-		{
-			int moves = 0;
-			Console.Write("Enter a number to move: ");
-			string inputString = Console.ReadLine();
-			while (inputString.CompareTo("exit") != 0)
-			{
-				ExecuteComand(inputString, ref moves);
-				if (IfEqualMatrix())
-				{
-					GameWon(moves);
-					pe4at();
-					GenerateMatrix();
-					PrintWelcome();
-					PrintMatrix();
-					moves = 0;
-				}
-				Console.Write("Enter a number to move: ");
-				inputString = Console.ReadLine();
+        }
 
+        private static void MainAlgorithm()
+        {
+            int moves = 0;
+            Console.Write("Enter a number to move: ");
+            string inputString = Console.ReadLine();
+            while (inputString.CompareTo("exit") != 0)
+            {
+                ExecuteComand(inputString, ref moves);
+                if (IfEqualMatrix())
+                {
+                    GameWon(moves);
+                    pe4at();
+                    GenerateMatrix();
+                    PrintWelcome();
+                    PrintMatrix();
+                    moves = 0;
+                }
 
+                Console.Write("Enter a number to move: ");
+                inputString = Console.ReadLine();
+            }
 
-			}
-			Console.WriteLine("Good bye!");
-		}
+            Console.WriteLine("Good bye!");
+        }
+
         private static void ExecuteComand(string inputString, ref int moves)
         {
             switch (inputString)
             {
                 case "restart":
-                    moves = 0;
-                    GenerateMatrix();
-                    PrintWelcome();
-                    PrintMatrix();
-                    break;
-
-                case "top":
-                    pe4at();
-                    PrintMatrix();
-                    break;
-
-                default:
-                    int number = 0;
-                    bool isNumber = int.TryParse(inputString, out number);
-                    if (!isNumber)
                     {
-                        Console.WriteLine("Invalid comand!");
+                        moves = 0;
+                        GenerateMatrix();
+                        PrintWelcome();
+                        PrintMatrix();
                         break;
                     }
-                    if (number < 16 && number > 0)
+
+                case "top":
                     {
-                        int newRow = 0;
-                        int newCol = 0;
-                        for (int i = 0; i < 4; i++)
+                        pe4at();
+                        PrintMatrix();
+                        break;
+                    }
+
+                default:
+                    {
+                        int number = 0;
+                        bool isNumber = int.TryParse(inputString, out number);
+                        if (!isNumber)
                         {
-                            newRow = emptyRow + dirR[i];
-                            newCol = emptyCol + dirC[i];
-                            if (IfOutOfMAtrix(newRow, newCol))
+                            Console.WriteLine("Invalid comand!");
+                            break;
+                        }
+
+                        if (number < 16 && number > 0)
+                        {
+                            int newRow = 0;
+                            int newCol = 0;
+                            for (int i = 0; i < 4; i++)
                             {
+                                newRow = emptyRow + dirR[i];
+                                newCol = emptyCol + dirC[i];
+                                if (IfOutOfMAtrix(newRow, newCol))
+                                {
+                                    if (i == 3)
+                                    {
+                                        Console.WriteLine("Invalid move");
+                                    }
+
+                                    continue;
+                                }
+
+                                if (currentMatrix[newRow, newCol] == number)
+                                {
+                                    MoveEmptyCell(newRow, newCol);
+                                    moves++;
+                                    PrintMatrix();
+                                    break;
+                                }
+
                                 if (i == 3)
                                 {
                                     Console.WriteLine("Invalid move");
                                 }
-                                continue;
-                            }
-                            if (currentMatrix[newRow, newCol] == number)
-                            {
-                                MoveEmptyCell(newRow, newCol);
-                                moves++;
-                                PrintMatrix();
-                                break;
-                            }
-                            if (i == 3)
-                            {
-                                Console.WriteLine("Invalid move");
                             }
                         }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid move");
+                        else
+                        {
+                            Console.WriteLine("Invalid move");
+                            break;
+                        }
+
                         break;
                     }
-                    break;
             }
-
-
-
         }
     }
 }
