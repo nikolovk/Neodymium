@@ -227,7 +227,7 @@ namespace GameFifteen
             GenerateMatrix();
             PrintWelcome();
             PrintMatrix();
-			MainAlgorithm();
+            MainAlgorithm();
 		}
   
 		private static void MainAlgorithm()
