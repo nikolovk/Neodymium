@@ -13,7 +13,7 @@ namespace GameFifteen
         static Random rand = new Random();
         public const int MatrixLength = 4;
         static int[,] arrangedMatrix = new int[MatrixLength, MatrixLength] { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, 
-                                                                     { 9, 10, 11, 12 }, { 13, 14, 15, 16 } };
+                                                                             { 9, 10, 11, 12 }, { 13, 14, 15, 16 } };
         static int emptyRow = 3;
         static int emptyCol = 3;
         static int[,] currentMatrix = new int[MatrixLength, MatrixLength] { { 1, 2, 3, 4 }, { 5, 6, 7, 8 },
@@ -22,28 +22,15 @@ namespace GameFifteen
         static int[] dirC = new int[4] { 0, 1, 0, -1 };
         static OrderedMultiDictionary<int, string> scoreboard = new OrderedMultiDictionary<int, string>(true);
 
-        private static void GenerateMatrix()
+        private static void GenerateRandomMatrix()
         {
-            /* mislq che tozi kod e izlishen
-             currentMatrix se inicializira hardcode*/
-
-            //int cellValue = 1;
-            //for (int i = 0; i < MatrixLength; i++)
-            //{
-            //    for (int j = 0; j < MatrixLength; j++)
-            //    {
-            //        currentMatrix[i, j] = cellValue;
-            //        cellValue++;
-            //    }
-            //}
-
             int ramizeMoves = rand.Next(10, 21);
             for (int i = 0; i < ramizeMoves; i++)
             {
                 int randomDirection = rand.Next(4);
                 int newRow = emptyRow + dirR[randomDirection];
                 int newCol = emptyCol + dirC[randomDirection];
-                if (IfOutOfMAtrix(newRow, newCol))
+                if (IsOutOfMAtrix(newRow, newCol))
                 {
                     i--;
                     continue;
@@ -53,14 +40,9 @@ namespace GameFifteen
                     MoveEmptyCell(newRow, newCol);
                 }
             }
-
-            if (IfEqualMatrix())
-            {
-                GenerateMatrix();
-            }
         }
 
-        private static bool IfOutOfMAtrix(int row, int col)
+        private static bool IsOutOfMAtrix(int row, int col)
         {
             if (row >= MatrixLength || row < 0 || col < 0 || col >= MatrixLength)
             {
@@ -119,7 +101,7 @@ namespace GameFifteen
             "Use 'top' to view the top scoreboard, 'restart' to start a new game and \n'exit' to quit the game.");
         }
 
-        private static bool IfEqualMatrix()
+        private static bool IsQurrentMatrixArranged()
         {
             for (int i = 0; i < MatrixLength; i++)
             {
@@ -177,23 +159,23 @@ namespace GameFifteen
                 if (IfGoesToBoard(moves))
                 {
                     RemoveLastScore();
-                    tocki(moves);
+                    AddScoreToRankings(moves);
                 }
             }
             else
             {
-                tocki(moves);
+                AddScoreToRankings(moves);
             }
         }
 
-        private static void tocki(int moves)
+        private static void AddScoreToRankings(int moves)
         {
             Console.Write("Please enter your name for the top scoreboard: ");
             string name = Console.ReadLine();
             scoreboard.Add(moves, name);
         }
 
-        private static void pe4at()
+        private static void PrintRankings()
         {
             if (scoreboard.Count == 0)
             {
@@ -217,7 +199,11 @@ namespace GameFifteen
 
         static void Main()
         {
-            GenerateMatrix();
+            do
+            {
+                GenerateRandomMatrix();
+            } while (IsQurrentMatrixArranged());
+
             PrintWelcome();
             PrintMatrix();
             MainAlgorithm();
@@ -231,11 +217,11 @@ namespace GameFifteen
             while (inputString.CompareTo("exit") != 0)
             {
                 ExecuteComand(inputString, ref moves);
-                if (IfEqualMatrix())
+                if (IsQurrentMatrixArranged())
                 {
                     GameWon(moves);
-                    pe4at();
-                    GenerateMatrix();
+                    PrintRankings();
+                    GenerateRandomMatrix();
                     PrintWelcome();
                     PrintMatrix();
                     moves = 0;
@@ -255,7 +241,7 @@ namespace GameFifteen
                 case "restart":
                     {
                         moves = 0;
-                        GenerateMatrix();
+                        GenerateRandomMatrix();
                         PrintWelcome();
                         PrintMatrix();
                         break;
@@ -263,7 +249,7 @@ namespace GameFifteen
 
                 case "top":
                     {
-                        pe4at();
+                        PrintRankings();
                         PrintMatrix();
                         break;
                     }
@@ -286,7 +272,7 @@ namespace GameFifteen
                             {
                                 newRow = emptyRow + dirR[i];
                                 newCol = emptyCol + dirC[i];
-                                if (IfOutOfMAtrix(newRow, newCol))
+                                if (IsOutOfMAtrix(newRow, newCol))
                                 {
                                     if (i == 3)
                                     {
@@ -304,10 +290,10 @@ namespace GameFifteen
                                     break;
                                 }
 
-                                if (i == 3)
-                                {
-                                    Console.WriteLine("Invalid move");
-                                }
+                                //if (i == 3)
+                                //{
+                                //    Console.WriteLine("Invalid move");
+                                //}
                             }
                         }
                         else
