@@ -127,7 +127,7 @@ namespace GameFifteen
                 }
             }
 
-            return false;
+            return false; 
         }
 
         private static void RemoveLastScore()
