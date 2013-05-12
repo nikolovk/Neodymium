@@ -12,8 +12,6 @@ namespace GameFifteen
     {
         static Random rand = new Random();
         public const int MatrixLength = 4;
-        static int[,] arrangedMatrix = new int[MatrixLength, MatrixLength] { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, 
-                                                                             { 9, 10, 11, 12 }, { 13, 14, 15, 16 } };
         static int emptyRow = 3;
         static int emptyCol = 3;
         static int[,] currentMatrix = new int[MatrixLength, MatrixLength] { { 1, 2, 3, 4 }, { 5, 6, 7, 8 },
@@ -107,7 +105,7 @@ namespace GameFifteen
             {
                 for (int j = 0; j < MatrixLength; j++)
                 {
-                    if (currentMatrix[i, j] != arrangedMatrix[i, j])
+                    if (currentMatrix[i, j] != i * MatrixLength + j + 1)
                     {
                         return false;
                     }
