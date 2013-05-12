@@ -6,9 +6,8 @@ using Wintellect.PowerCollections;
 
 namespace GameFifteen
 {
-    // pozdravi na vsi4ki ot pernik!
 
-    class GameFifteen
+    public class GameFifteen
     {
         static Random rand = new Random();
         public const int MatrixLength = 4;
@@ -16,8 +15,8 @@ namespace GameFifteen
         static int emptyCol = 3;
         static int[,] currentMatrix = new int[MatrixLength, MatrixLength] { { 1, 2, 3, 4 }, { 5, 6, 7, 8 },
                                                                           { 9, 10, 11, 12 }, { 13, 14, 15, 16 } };
-        static int[] dirR = new int[4] { -1, 0, 1, 0 };
-        static int[] dirC = new int[4] { 0, 1, 0, -1 };
+        static int[] directionRow = new int[4] { -1, 0, 1, 0 };
+        static int[] directionCol = new int[4] { 0, 1, 0, -1 };
         static OrderedMultiDictionary<int, string> scoreboard = new OrderedMultiDictionary<int, string>(true);
 
         private static void GenerateRandomMatrix()
@@ -26,8 +25,8 @@ namespace GameFifteen
             for (int i = 0; i < ramizeMoves; i++)
             {
                 int randomDirection = rand.Next(4);
-                int newRow = emptyRow + dirR[randomDirection];
-                int newCol = emptyCol + dirC[randomDirection];
+                int newRow = emptyRow + directionRow[randomDirection];
+                int newCol = emptyCol + directionCol[randomDirection];
                 if (IsOutOfMAtrix(newRow, newCol))
                 {
                     i--;
@@ -99,7 +98,7 @@ namespace GameFifteen
             "Use 'top' to view the top scoreboard, 'restart' to start a new game and \n'exit' to quit the game.");
         }
 
-        private static bool IsQurrentMatrixArranged()
+        private static bool IsCurrentMatrixArranged()
         {
             for (int i = 0; i < MatrixLength; i++)
             {
@@ -200,7 +199,7 @@ namespace GameFifteen
             do
             {
                 GenerateRandomMatrix();
-            } while (IsQurrentMatrixArranged());
+            } while (IsCurrentMatrixArranged());
 
             PrintWelcome();
             PrintMatrix();
@@ -215,7 +214,7 @@ namespace GameFifteen
             while (inputString.CompareTo("exit") != 0)
             {
                 ExecuteComand(inputString, ref moves);
-                if (IsQurrentMatrixArranged())
+                if (IsCurrentMatrixArranged())
                 {
                     GameWon(moves);
                     PrintRankings();
@@ -268,8 +267,8 @@ namespace GameFifteen
                             int newCol = 0;
                             for (int i = 0; i < 4; i++)
                             {
-                                newRow = emptyRow + dirR[i];
-                                newCol = emptyCol + dirC[i];
+                                newRow = emptyRow + directionRow[i];
+                                newCol = emptyCol + directionCol[i];
                                 if (IsOutOfMAtrix(newRow, newCol))
                                 {
                                     if (i == 3)
@@ -287,11 +286,6 @@ namespace GameFifteen
                                     PrintMatrix();
                                     break;
                                 }
-
-                                //if (i == 3)
-                                //{
-                                //    Console.WriteLine("Invalid move");
-                                //}
                             }
                         }
                         else
