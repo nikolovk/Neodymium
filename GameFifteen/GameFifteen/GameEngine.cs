@@ -32,6 +32,7 @@ namespace GameFifteen
                 if (isNumber && number < Size * Size && number > 0)
                 {
                     this.field.MakeMove(number);
+                    Console.WriteLine(this.field.ToString());
                 }
                 else if (inputString == "restart")
                 {
@@ -53,7 +54,6 @@ namespace GameFifteen
                     //PrintRankings();
                     StartGame();
                 }
-                Console.WriteLine(this.field.ToString());
                 Console.Write("Enter a number to move: ");
                 inputString = Console.ReadLine();
             }

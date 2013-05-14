@@ -89,7 +89,7 @@ namespace GameFifteen
                     int randomPlace = randomGenerator.Next(0, allNumbers.Count);
                     this.field[row, col] = allNumbers[randomPlace];
                     allNumbers.RemoveAt(randomPlace);
-                }                
+                }
             }
         }
 
@@ -126,20 +126,18 @@ namespace GameFifteen
                 fieldAsString.Append("|");
                 for (int col = 0; col < this.field.GetLength(1); col++)
                 {
-                    if (this.field[row, col] <= 9)
+                    if (this.field[row, col] == 0)
+                    {
+                        fieldAsString.Append("   ");
+                    }
+                    else if (this.field[row, col] <= 9)
                     {
                         fieldAsString.Append("  " + this.field[row, col]);
                     }
                     else
                     {
-                        if (this.field[row, col] == 0)
-                        {
-                            fieldAsString.Append("   ");
-                        }
-                        else
-                        {
-                            fieldAsString.Append(" " + this.field[row, col]);
-                        }
+
+                        fieldAsString.Append(" " + this.field[row, col]);
                     }
 
                     if (col == this.field.GetLength(0) - 1)
