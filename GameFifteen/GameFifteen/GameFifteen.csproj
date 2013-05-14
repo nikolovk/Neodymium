@@ -44,8 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameEngine.cs" />
+    <Compile Include="GameField.cs" />
     <Compile Include="GameFifteen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScoreBoard.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

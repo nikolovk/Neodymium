@@ -196,20 +196,22 @@ namespace GameFifteen
 
         static void Main()
         {
-            do
-            {
-                GenerateRandomMatrix();
-            } while (IsCurrentMatrixArranged());
+            //do
+            //{
+            //    GenerateRandomMatrix();
+            //} while (IsCurrentMatrixArranged());
 
-            PrintWelcome();
-            PrintMatrix();
-            MainAlgorithm();
+            //PrintWelcome();
+            //PrintMatrix();
+            //MainAlgorithm();
+            GameEngine game = new GameEngine();
+            game.PlayGame();
         }
 
         private static void MainAlgorithm()
         {
             int moves = 0;
-            Console.Write("Enter a number to move: ");
+            Console.Write("Enter a number to move or command: ");
             string inputString = Console.ReadLine();
             while (inputString.CompareTo("exit") != 0)
             {
