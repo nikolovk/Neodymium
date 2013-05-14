@@ -44,6 +44,7 @@ namespace GameFifteen
                     this.field[zeroRow, zeroCol] = numberToMove;
                     this.field[moveRow, moveCol] = 0;
                     isMoved = true;
+                    this.MoveCounter++;
                 }
             }
             else
@@ -98,6 +99,10 @@ namespace GameFifteen
             {
                 for (int col = 0; col < this.Size; col++)
                 {
+                    if (((row + 1) == this.Size) && ((col + 1) == this.Size))
+                    {
+                        break;
+                    }
                     if (this.field[row, col] != row * this.Size + col + 1)
                     {
                         return false;

@@ -5,7 +5,7 @@ namespace GameFifteen
     public class GameEngine
     {
         private GameField field;
-        const int Size = 2;
+        const int Size = 4;
 
         public GameEngine()
         {
@@ -28,10 +28,10 @@ namespace GameFifteen
             while (inputString != "exit")
             {
                 int number = 0;
-                bool isNumber = int.TryParse(inputString, out number); 
-                if (isNumber && number < Size*Size && number > 0)
+                bool isNumber = int.TryParse(inputString, out number);
+                if (isNumber && number < Size * Size && number > 0)
                 {
-                        this.field.MakeMove(number);
+                    this.field.MakeMove(number);
                 }
                 else if (inputString == "restart")
                 {
@@ -48,13 +48,10 @@ namespace GameFifteen
 
                 if (this.field.IsCurrentMatrixArranged())
                 {
-                    //GameWon(moves);
+                    Console.WriteLine("Congratulations! You won the game in {0} moves.", this.field.MoveCounter);
+                    //TODO Add to scoreboard
                     //PrintRankings();
-                    //GenerateRandomMatrix();
-                    //PrintWelcome();
-                    //PrintMatrix();
-                    //moves = 0;
-                    Console.WriteLine("Win");
+                    StartGame();
                 }
                 Console.WriteLine(this.field.ToString());
                 Console.Write("Enter a number to move: ");

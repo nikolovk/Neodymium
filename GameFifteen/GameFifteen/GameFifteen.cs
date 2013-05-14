@@ -6,7 +6,6 @@ using Wintellect.PowerCollections;
 
 namespace GameFifteen
 {
-
     public class GameFifteen
     {
         static Random rand = new Random();
