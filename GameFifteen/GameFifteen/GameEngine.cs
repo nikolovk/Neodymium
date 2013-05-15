@@ -1,75 +1,87 @@
-﻿using System;
-
-namespace GameFifteen
+﻿namespace GameFifteen
 {
+    using System;
+
     public class GameEngine
     {
+        private const int Size = 4;
         private GameField field;
-        const int Size = 4;
+        private ScoreBoard scoreBoard;
+        private bool toPlay = true;
 
         public GameEngine()
         {
-
-        }
-
-        private void StartGame()
-        {
+            this.scoreBoard = new ScoreBoard();
             this.field = new GameField(Size);
-            this.PrintWelcome();
-            this.PrintMatrix();
         }
 
         public void PlayGame()
         {
-            StartGame();
+            this.InitializeGame();
 
-            Console.Write("Enter a number to move or command: ");
-            string inputString = Console.ReadLine();
-            while (inputString != "exit")
+            while (this.toPlay)
             {
-                int number = 0;
-                bool isNumber = int.TryParse(inputString, out number);
-                if (isNumber && number < Size * Size && number > 0)
-                {
-                    this.field.MakeMove(number);
-                    Console.WriteLine(this.field.ToString());
-                }
-                else if (inputString == "restart")
-                {
-                    this.StartGame();
-                }
-                else if (inputString == "top")
-                {
-                    //TODO add ScoreBoard
-                }
-                else
-                {
-                    Console.WriteLine("Invalid command!");
-                }
-
-                if (this.field.IsCurrentMatrixArranged())
-                {
-                    Console.WriteLine("Congratulations! You won the game in {0} moves.", this.field.MoveCounter);
-                    //TODO Add to scoreboard
-                    //PrintRankings();
-                    StartGame();
-                }
-                Console.Write("Enter a number to move: ");
-                inputString = Console.ReadLine();
+                GameRenderer.RenderCommandMessage();
+                this.ParseInput();
+                this.IsMatrixArranged();
             }
-
-            Console.WriteLine("Good bye!");
         }
 
-        private void PrintMatrix()
+        private void InitializeGame()
         {
-            Console.WriteLine(this.field.ToString());
+            GameRenderer.RenderWelcomeMessage();
+            GameRenderer.RenderObject(this.field);
         }
 
-        private void PrintWelcome()
+        private void IsMatrixArranged()
         {
-            Console.WriteLine("Welcome to the game “15”. Please try to arrange the numbers sequentially.\n" +
-            "Use 'top' to view the top scoreboard, 'restart' to start a new game and \n'exit' to quit the game.");
+            if (this.field.IsCurrentMatrixArranged())
+            {
+                GameRenderer.RenderWinMessage(this.field.MoveCounter);
+                this.AddNewScore();
+                GameRenderer.RenderObject(this.scoreBoard);
+                this.InitializeGame();
+            }
+        }
+
+        private void ParseInput()
+        {
+            string inputString = Console.ReadLine();
+            int number = 0;
+            
+            bool isValidNumber = int.TryParse(inputString, out number);
+            bool isNumberInRange = 1 <= number && number < Size * Size;
+
+            if (isValidNumber && isNumberInRange)
+            {
+                this.field.MakeMove(number);
+                
+                GameRenderer.Clear();
+                GameRenderer.RenderObject(this.field);
+            }
+            else if (inputString == "restart")
+            {
+                this.InitializeGame();
+            }
+            else if (inputString == "top")
+            {
+                GameRenderer.RenderObject(this.scoreBoard);
+            }
+            else if (inputString == "exit")
+            {
+                GameRenderer.RenderGoodbyeMessage();
+                this.toPlay = false;
+            }
+            else
+            {
+                GameRenderer.RenderInvalidCommandMessage();
+            }
+        }
+
+        private void AddNewScore()
+        {
+            string nickname = Console.ReadLine();
+            this.scoreBoard.AddToScoreBoard(nickname, this.field.MoveCounter);
         }
     }
 }
