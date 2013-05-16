@@ -92,6 +92,9 @@
             return true;
         }
 
+        /// <summary>
+        /// Ovveride ToString for drawing the matrix field
+        /// </summary>
         public override string ToString()
         {
             StringBuilder fieldAsString = new StringBuilder();

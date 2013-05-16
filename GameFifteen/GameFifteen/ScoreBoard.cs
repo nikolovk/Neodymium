@@ -5,15 +5,26 @@
     using System.Linq;
     using System.Text;
 
+    /// <summary>
+    /// Creates new scoreboard or maintain existing one. 
+    /// </summary>
     public class ScoreBoard
     {
         private List<KeyValuePair<string, int>> scoreBoardList;
 
+        /// <summary>
+        /// Creates new empty scoreboard.
+        /// </summary>
         public ScoreBoard()
         {
             this.scoreBoardList = new List<KeyValuePair<string, int>>();
         }
 
+        /// <summary>
+        /// Adds new entry in scoreboard list.
+        /// </summary>
+        /// <param name="nickname">Name of player, finished game.</param>
+        /// <param name="movesCount">Score of player, finished game.</param>        
         public void AddToScoreBoard(string nickname, int movesCount)
         {
             KeyValuePair<string, int> scorePair =
@@ -28,6 +39,9 @@
             }
         }
 
+        /// <summary>
+        /// Override ToString method, for user frendly scoreboard view.
+        /// </summary>
         public override string ToString()
         {
             StringBuilder result = new StringBuilder();
