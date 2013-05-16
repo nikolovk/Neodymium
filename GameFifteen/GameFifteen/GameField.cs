@@ -4,6 +4,10 @@
     using System.Collections.Generic;
     using System.Text;
 
+    /// <summary>
+    /// Public clas for maintaing the game field. Drawing field, 
+    /// calculating positions and check if matrix is arranged.
+    /// </summary>
     public class GameField
     {
         private int[,] field;
@@ -12,6 +16,10 @@
 
         public int MoveCounter { get; private set; }
 
+        /// <summary>
+        /// Sets basic field dimensions and triggers mine generating sequence.
+        /// </summary>
+        /// <param name="size">Sets size of the field.</param>
         public GameField(int size)
         {
             if (size <= 1)
@@ -25,6 +33,11 @@
                 this.GenerateField();
         }
 
+        /// <summary>
+        /// Make move calculations and execute move if input data is valid.
+        /// </summary>
+        /// <param name="numberToMove">Number from field that is chosen to be moved.</param>
+        /// <returns>If number is successfully moved or not.</returns>
         public bool MakeMove(int numberToMove)
         {
             bool isMoved = false;
@@ -54,6 +67,10 @@
             return isMoved;
         }
 
+        /// <summary>
+        /// Checks if current matrix is arranged or not.
+        /// </summary>
+        /// <returns>True if matrix arranged and False if matrix is not arranged</returns>
         public bool IsCurrentMatrixArranged()
         {
             for (int row = 0; row < this.Size; row++)

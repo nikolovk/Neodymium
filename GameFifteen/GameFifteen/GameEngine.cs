@@ -2,6 +2,9 @@
 {
     using System;
 
+    /// <summary>
+    /// Class, that prepairs new game, and support existing one.
+    /// </summary>
     public class GameEngine
     {
         private const int Size = 4;
@@ -9,12 +12,18 @@
         private ScoreBoard scoreBoard;
         private bool toPlay = true;
 
+        /// <summary>
+        /// Sets base parameters for new game, new scoreboard and new field.
+        /// </summary>
         public GameEngine()
         {
             this.scoreBoard = new ScoreBoard();
             this.field = new GameField(Size);
         }
 
+        /// <summary>
+        /// Support existing game. Parsing commands and checking if matrix is arranged.
+        /// <summary>
         public void PlayGame()
         {
             this.InitializeGame();
