@@ -22,5 +22,24 @@ namespace GameFifteenTests
             Assert.AreEqual("The score-board is empty.", scores.ToString());
         }
 
+        [TestMethod]
+        public void TestAddSevenToScoreBoard()
+        {
+            ScoreBoard scores = new ScoreBoard();
+            scores.AddToScoreBoard("Pesho", 8);
+            scores.AddToScoreBoard("Pesho", 8);
+            scores.AddToScoreBoard("Pesho", 8);
+            scores.AddToScoreBoard("Pesho", 8);
+            scores.AddToScoreBoard("Pesho", 8);
+            scores.AddToScoreBoard("Pesho", 8);
+            scores.AddToScoreBoard("Pesho", 8);
+            string expectedScoreBoard = "";
+            for (int i = 0; i < 4; i++)
+            {
+                expectedScoreBoard += (i+1).ToString() + ". Pesho --> 8 moves" + Environment.NewLine;
+            }
+            expectedScoreBoard += "5. Pesho --> 8 moves";
+            Assert.AreEqual(expectedScoreBoard, scores.ToString());
+        }
     }
 }

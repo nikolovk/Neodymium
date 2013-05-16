@@ -1,5 +1,6 @@
 ﻿namespace GameFifteen
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
@@ -41,6 +42,10 @@
             {
                 result.AppendFormat(
                     "{0}. {1} --> {2} moves", i + 1, this.scoreBoardList[i].Key, this.scoreBoardList[i].Value);
+                if (i<this.scoreBoardList.Count -1)
+                {
+                    result.Append(Environment.NewLine);
+                }               
             }
 
             return result.ToString();
