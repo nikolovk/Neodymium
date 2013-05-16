@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Text;
 
     /// <summary>
@@ -31,7 +30,7 @@
                 new KeyValuePair<string, int>(nickname, movesCount);
             this.scoreBoardList.Add(scorePair);
 
-            this.scoreBoardList.OrderBy(x => x.Value).ThenBy(x => x.Key);
+            this.scoreBoardList.Sort((x, y) => y.Value.CompareTo(x.Value));
 
             if (this.scoreBoardList.Count > 5)
             {

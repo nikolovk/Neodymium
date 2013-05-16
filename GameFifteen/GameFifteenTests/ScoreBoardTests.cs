@@ -26,18 +26,20 @@ namespace GameFifteenTests
         public void TestAddSevenToScoreBoard()
         {
             ScoreBoard scores = new ScoreBoard();
-            scores.AddToScoreBoard("Pesho", 8);
-            scores.AddToScoreBoard("Pesho", 8);
-            scores.AddToScoreBoard("Pesho", 8);
+            scores.AddToScoreBoard("Pesho", 9);
+            scores.AddToScoreBoard("Pesho", 88);
+            scores.AddToScoreBoard("Pesho", 7);
             scores.AddToScoreBoard("Pesho", 8);
             scores.AddToScoreBoard("Pesho", 8);
             scores.AddToScoreBoard("Pesho", 8);
             scores.AddToScoreBoard("Pesho", 8);
             string expectedScoreBoard = "";
-            for (int i = 0; i < 4; i++)
-            {
-                expectedScoreBoard += (i+1).ToString() + ". Pesho --> 8 moves" + Environment.NewLine;
-            }
+
+
+            expectedScoreBoard += "1. Pesho --> 88 moves" + Environment.NewLine;
+            expectedScoreBoard += "2. Pesho --> 9 moves" + Environment.NewLine;
+            expectedScoreBoard += "3. Pesho --> 8 moves" + Environment.NewLine;
+            expectedScoreBoard += "4. Pesho --> 8 moves" + Environment.NewLine;
             expectedScoreBoard += "5. Pesho --> 8 moves";
             Assert.AreEqual(expectedScoreBoard, scores.ToString());
         }

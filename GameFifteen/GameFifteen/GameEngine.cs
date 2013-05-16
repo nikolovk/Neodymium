@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// Class, that prepairs new game, and support existing one.
+    /// Class that prepares a new game and support existing one.
     /// </summary>
     public class GameEngine
     {
@@ -13,7 +13,7 @@
         private bool toPlay = true;
 
         /// <summary>
-        /// Sets base parameters for new game, new scoreboard and new field.
+        ///Initializes a new instance of the <see cref="GameEngine"/> class. Sets base parameters for new game, scoreboard and field.
         /// </summary>
         public GameEngine()
         {
@@ -31,7 +31,10 @@
             while (this.toPlay)
             {
                 GameRenderer.RenderCommandMessage();
-                this.ParseInput();
+                
+                string inputString = Console.ReadLine();
+                this.ParseInput(inputString);
+                
                 this.IsMatrixArranged();
             }
         }
@@ -47,15 +50,17 @@
             if (this.field.IsCurrentMatrixArranged())
             {
                 GameRenderer.RenderWinMessage(this.field.MoveCounter);
-                this.AddNewScore();
+
+                string nickname = Console.ReadLine();
+                this.AddNewScore(nickname);
+                
                 GameRenderer.RenderObject(this.scoreBoard);
                 this.InitializeGame();
             }
         }
 
-        private void ParseInput()
+        private void ParseInput(string inputString)
         {
-            string inputString = Console.ReadLine();
             int number = 0;
             
             bool isValidNumber = int.TryParse(inputString, out number);
@@ -87,9 +92,8 @@
             }
         }
 
-        private void AddNewScore()
+        private void AddNewScore(string nickname)
         {
-            string nickname = Console.ReadLine();
             this.scoreBoard.AddToScoreBoard(nickname, this.field.MoveCounter);
         }
     }
