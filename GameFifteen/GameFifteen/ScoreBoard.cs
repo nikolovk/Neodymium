@@ -17,6 +17,7 @@
         {
             KeyValuePair<string, int> scorePair =
                 new KeyValuePair<string, int>(nickname, movesCount);
+            this.scoreBoardList.Add(scorePair);
 
             this.scoreBoardList.OrderBy(x => x.Value).ThenBy(x => x.Key);
 
@@ -39,7 +40,7 @@
             for (int i = 0; i < this.scoreBoardList.Count; i++)
             {
                 result.AppendFormat(
-                    "{0}. {1} --> {2} moves", i, this.scoreBoardList[i].Key, this.scoreBoardList[i].Value);
+                    "{0}. {1} --> {2} moves", i + 1, this.scoreBoardList[i].Key, this.scoreBoardList[i].Value);
             }
 
             return result.ToString();
