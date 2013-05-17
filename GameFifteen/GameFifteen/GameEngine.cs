@@ -10,6 +10,7 @@
         private const int Size = 4;
         private GameField field;
         private ScoreBoard scoreBoard;
+        private GameRenderer renderer;
         private bool toPlay = true;
 
         /// <summary>
@@ -19,6 +20,7 @@
         {
             this.scoreBoard = new ScoreBoard();
             this.field = new GameField(Size);
+            renderer = new GameRenderer();
         }
 
         /// <summary>
@@ -30,31 +32,31 @@
 
             while (this.toPlay)
             {
-                GameRenderer.RenderCommandMessage();
+                this.renderer.RenderCommandMessage();
                 
                 string inputString = Console.ReadLine();
                 this.ParseInput(inputString);
                 
-                this.IsMatrixArranged();
+                this.CheckIfMatrixArranged();
             }
         }
 
         private void InitializeGame()
         {
-            GameRenderer.RenderWelcomeMessage();
-            GameRenderer.RenderObject(this.field);
+            this.renderer.RenderWelcomeMessage();
+            this.renderer.RenderObject(this.field);
         }
 
-        private void IsMatrixArranged()
+        private void CheckIfMatrixArranged()
         {
             if (this.field.IsCurrentMatrixArranged())
             {
-                GameRenderer.RenderWinMessage(this.field.MoveCounter);
+                this.renderer.RenderWinMessage(this.field.MoveCounter);
 
                 string nickname = Console.ReadLine();
                 this.AddNewScore(nickname);
                 
-                GameRenderer.RenderObject(this.scoreBoard);
+                this.renderer.RenderObject(this.scoreBoard);
                 this.InitializeGame();
             }
         }
@@ -70,8 +72,8 @@
             {
                 this.field.MakeMove(number);
                 
-                GameRenderer.Clear();
-                GameRenderer.RenderObject(this.field);
+                this.renderer.Clear();
+                this.renderer.RenderObject(this.field);
             }
             else if (inputString == "restart")
             {
@@ -79,16 +81,16 @@
             }
             else if (inputString == "top")
             {
-                GameRenderer.RenderObject(this.scoreBoard);
+                this.renderer.RenderObject(this.scoreBoard);
             }
             else if (inputString == "exit")
             {
-                GameRenderer.RenderGoodbyeMessage();
+                this.renderer.RenderGoodbyeMessage();
                 this.toPlay = false;
             }
             else
             {
-                GameRenderer.RenderInvalidCommandMessage();
+                this.renderer.RenderInvalidCommandMessage();
             }
         }
 

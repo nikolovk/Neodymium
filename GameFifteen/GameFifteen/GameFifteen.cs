@@ -9,9 +9,8 @@
     {
         static void Main()
         {
-            //GameEngine game = new GameEngine();
-            //game.PlayGame();
-            ScoreBoard sc = new ScoreBoard();
+            GameEngine game = new GameEngine();
+            game.PlayGame();
         }
     }
 }

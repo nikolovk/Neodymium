@@ -8,28 +8,56 @@ namespace GameFifteenTests
     public class GameFieldTests
     {
         [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void InitializeFieldWithNegativeSize()
+        {
+            GameField gamefield = new GameField(-2);
+        }
+
+        [TestMethod]
         public void TestMoveCounter()
         {
-            GameField game = new GameField(4);
+            GameField gamefield = new GameField(4);
             int successMoveCount = 0;
-            if (game.MakeMove(12))
+            if (gamefield.MakeMove(12))
             {
                 successMoveCount++;
             }
 
-            if (game.MakeMove(1))
+            if (gamefield.MakeMove(1))
             {
                 successMoveCount++;
             }
             
-            Assert.AreEqual(successMoveCount, game.MoveCounter);
+            Assert.AreEqual(successMoveCount, gamefield.MoveCounter);
         }
 
         [TestMethod]
         public void TestMoveCounterStartValue()
         {
-            GameField game = new GameField(4);
-            Assert.AreEqual(0, game.MoveCounter);
+            GameField gamefield = new GameField(4);
+            Assert.AreEqual(0, gamefield.MoveCounter);
+        }
+
+        [TestMethod]
+        public void TestIsCurrentMatrixArranged()
+        {
+            GameField gamefield = new GameField(4);
+            Assert.IsFalse(gamefield.IsCurrentMatrixArranged());
+        }
+
+        [TestMethod]
+        public void TestToString()
+        {
+            GameField gamefield = new GameField(4);
+            Assert.IsTrue(gamefield.ToString().StartsWith(" -------------"));
+        }
+
+        [TestMethod]
+        public void TestToStringSecondTest()
+        {
+            GameField gamefield = new GameField(4);
+            Assert.IsTrue(gamefield.ToString().Contains("|"));
         }
     }
 }

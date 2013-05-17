@@ -45,13 +45,19 @@
             int zeroCol;
             int moveRow;
             int moveCol;
+            
             this.FindPosition(0, out zeroRow, out zeroCol);
             this.FindPosition(numberToMove, out moveRow, out moveCol);
 
-            if (zeroRow >= 0 && zeroCol >= 0 && moveRow >= 0 && moveCol >= 0)
+            bool zeroAtRandomPosition = zeroRow >= 0 && zeroCol >= 0;
+            bool movedNumberAtRandomPosition = moveRow >= 0 && moveCol >= 0;
+
+            if (zeroAtRandomPosition && movedNumberAtRandomPosition )
             {
-                if ((zeroRow == moveRow && Math.Abs(zeroCol - moveCol) == 1) ||
-                    (zeroCol == moveCol && Math.Abs(zeroRow - moveRow) == 1))
+                bool elementsNextToEachOther = (zeroRow == moveRow && Math.Abs(zeroCol - moveCol) == 1) ||
+                    (zeroCol == moveCol && Math.Abs(zeroRow - moveRow) == 1);
+
+                if (elementsNextToEachOther)
                 {
                     this.field[zeroRow, zeroCol] = numberToMove;
                     this.field[moveRow, moveCol] = 0;
