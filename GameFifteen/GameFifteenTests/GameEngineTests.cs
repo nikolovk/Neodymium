@@ -39,7 +39,6 @@ namespace GameFifteenTests
         [TestMethod]
         public void TestParseInputSecondTest()
         {
-            
             privateEngine.Invoke("ParseInput", "jibber-jabber");
             privateEngine.Invoke("ParseInput", "top");
             privateEngine.Invoke("ParseInput", "1");

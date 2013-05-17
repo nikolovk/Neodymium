@@ -36,31 +36,39 @@
                 
                 string inputString = Console.ReadLine();
                 this.ParseInput(inputString);
-                
-                this.CheckIfMatrixArranged();
+
+                if (this.CheckIfMatrixArranged())
+                {
+                    this.renderer.RenderWinMessage(this.field.MoveCounter);
+
+                    string nickname = Console.ReadLine();
+                    this.AddNewScore(nickname);
+
+                    this.renderer.RenderObject(this.scoreBoard);
+                    this.InitializeGame();
+                }
             }
         }
-
+        
+        /// <summary>
+        /// Calls the renderer to print the opening message, and the gamefield
+        /// </summary>
         private void InitializeGame()
         {
             this.renderer.RenderWelcomeMessage();
             this.renderer.RenderObject(this.field);
         }
 
-        private void CheckIfMatrixArranged()
+        private bool CheckIfMatrixArranged()
         {
-            if (this.field.IsCurrentMatrixArranged())
-            {
-                this.renderer.RenderWinMessage(this.field.MoveCounter);
-
-                string nickname = Console.ReadLine();
-                this.AddNewScore(nickname);
-                
-                this.renderer.RenderObject(this.scoreBoard);
-                this.InitializeGame();
-            }
+            return this.field.IsCurrentMatrixArranged();
         }
 
+
+        /// <summary>
+        /// Parses commands based on string messages.
+        /// </summary>
+        /// <param name="inputString">Command to be executed.</param>
         private void ParseInput(string inputString)
         {
             int number = 0;
@@ -94,6 +102,10 @@
             }
         }
 
+        /// <summary>
+        /// Adds nickname and score to the current engine's scoreboard.
+        /// </summary>
+        /// <param name="nickname">Nickname for current player to be added to the scoreboard</param>
         private void AddNewScore(string nickname)
         {
             this.scoreBoard.AddToScoreBoard(nickname, this.field.MoveCounter);

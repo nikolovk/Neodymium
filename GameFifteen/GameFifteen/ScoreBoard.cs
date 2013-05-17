@@ -9,6 +9,7 @@
     /// </summary>
     public class ScoreBoard
     {
+        private const int MaxScoreBoardElements = 5;
         private List<KeyValuePair<string, int>> scoreBoardList;
 
         /// <summary>
@@ -32,7 +33,7 @@
 
             this.scoreBoardList.Sort((x, y) => y.Value.CompareTo(x.Value));
 
-            if (this.scoreBoardList.Count > 5)
+            if (this.scoreBoardList.Count > MaxScoreBoardElements)
             {
                 this.RemoveLastScoresFromBoard();
             }
@@ -64,11 +65,16 @@
             return result.ToString();
         }
 
+
+        /// <summary>
+        /// If the current scoreboard list contains more than the maximum number of elements
+        /// The unnecessary ones are removed.
+        /// </summary>
         private void RemoveLastScoresFromBoard()
         {
-            while (this.scoreBoardList.Count > 5)
+            while (this.scoreBoardList.Count > MaxScoreBoardElements)
             {
-                this.scoreBoardList.RemoveAt(5);
+                this.scoreBoardList.RemoveAt(MaxScoreBoardElements);
             }
         }
     }

@@ -138,6 +138,12 @@
             return fieldAsString.ToString();
         }
 
+        /// <summary>
+        /// Searches the field for a given number and returns it's current row and column
+        /// </summary>
+        /// <param name="searchedNumber">The number to be searched for</param>
+        /// <param name="numberRow">The variable, where the searched number's current row should be stored</param>
+        /// <param name="numberCol">The variable, where the searched number's current column should be stored</param>
         private void FindPosition(int searchedNumber, out int numberRow, out int numberCol)
         {
             numberCol = -1;
@@ -156,6 +162,9 @@
             }
         }
 
+        /// <summary>
+        /// Generates a field with numbers at random position
+        /// </summary>
         private void GenerateField()
         {
             List<int> allNumbers = new List<int>();
